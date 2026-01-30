@@ -1,10 +1,30 @@
-# PyBisWorkshop
+# BAM `pyBIS` workshop
 
-This is the material for the pyBIS-Workshops of the project [BAM Data Store](https://datastore.bam.de/).
+This is the material for the pyBIS workshop presented at BAM by the BAM Data Store team.
 
-Changes should be tracked here, the versions used in the workshops of the different phases can be saved in the [Teams/Sharepoint folders of the project](https://bambund.sharepoint.com/:f:/r/sites/BAMDataStoreRollout-TP5-SchulungundBeratung2/Freigegebene%20Dokumente/TP5%20-%20Schulung%20und%20Beratung?csf=1&web=1&e=yA15He).
+In order to develop the tutorial, clone this repository locally:
 
-## Authors
+```sh
+git clone https://github.com/BAMresearch/bam-masterdata.git
+cd bam-masterdata
+```
 
-* Carlos Madariaga <carlos.madariaga@bam.de>
-* Jörg Rädler <joerg.raedler@bam.de>
+Then, create and activate an environment:
+
+```sh
+conda create -n pybis_tuto python=3.12
+conda activate pybis_tuto
+```
+
+With the environment activated, make sure to upgrade pip and install the dependencies:
+
+```sh
+pip install --upgrade pip
+pip install -e .
+```
+
+Launch the MkDocs page by running:
+
+```sh
+mkdocs serve
+```

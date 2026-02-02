@@ -16,11 +16,17 @@ conda create -n pybis_tuto python=3.12
 conda activate pybis_tuto
 ```
 
-With the environment activated, make sure to upgrade pip and install the dependencies:
+With the environment activated, make sure to upgrade pip and install `uv`
 
 ```sh
 pip install --upgrade pip
-pip install -e .
+pip install uv
+```
+
+You can install the dependencies from the uv.lock file:
+
+```sh
+uv sync --frozen
 ```
 
 Launch the MkDocs page by running:

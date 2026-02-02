@@ -1,25 +1,13 @@
 [project]
-classifiers = [
-  "Programming Language :: Python :: 3.12",
-]
 name = "bam-pybis-workshop"
-description = "The official training material for pyBIS in BAM."
 version = "0.1.0"
-readme = "README.md"
-requires-python = ">=3.10"
-authors = [
-  { name = "BAM Data Store", email = "datastore@bam.de" },
-]
-maintainers = [
-  { name = "Jose M. Pizarro", email = "jose.pizarro-blanco@bam.de" },
-]
-license = { file = "LICENSE" }
+requires-python = ">=3.12"
 dependencies = [
-  "pybis~=1.37.1rc4",
-  "jupyter",
-  "jupyterlab",
-  "mkdocs-material",
-  "mkdocs-click",
-  "mkdocstrings",
-  "mkdocstrings-python"
+    "jupyter>=1.1.1",
+    "jupyterlab>=4.5.3",
+    "mkdocs-click>=0.9.0",
+    "mkdocs-material>=9.7.1",
+    "mkdocstrings>=1.0.2",
+    "mkdocstrings-python>=2.0.1",
+    "pybis~=1.37.1rc4",
 ]

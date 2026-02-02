@@ -3,9 +3,10 @@ In openBIS, there are two main modes in which data is defined by users for stora
 1. Manual annotation of data via the Graphical User Interface (GUI).
 2. Automated data ingestion via an Application Programming Interface (API).
 
-In this part, you will learn the basics of the openBIS API in Python, also called [pyBIS](https://pypi.org/project/pybis/) to automate data ingestion in openBIS by working Python scripts.
+In this part, you will learn the basics of the openBIS API in Python, also called [pyBIS](https://pypi.org/project/pybis/).
 
-We recommend the reader to launch a Jupyter Notebook in a Python environment with `pyBIS` installed, and run the commands shown throughout the next sections.
+??? tip Testing the Python code
+    We recommend the reader to launch a Jupyter Notebook in a Python environment with `pyBIS` installed, and run the commands shown throughout the next sections.
 
 ## Initial Setup: Connecting to openBIS
 

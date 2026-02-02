@@ -1,11 +1,11 @@
-In this part, you will learn the how to use [pyBIS](https://pypi.org/project/pybis/) to create new Projects and [Entities](https://datastore.bam.de/en/concepts/entity_and_entity_types) (Collections, Objects, Datasets), the parent-child relationships between Objects, as well as to automate the searchers/filtering of data in openBIS.
+In this part, you will learn how to use [pyBIS](https://pypi.org/project/pybis/) to create new Projects and [Entities](https://datastore.bam.de/en/concepts/entity_and_entity_types) (Collections, Objects, Datasets), define parent-child relationships between Objects, and define advanced searches and filters in openBIS.
 
 ??? tip Testing the Python code
-    We recommend the reader to launch a Jupyter Notebook in a Python environment with `pyBIS` installed, and run the commands shown throughout the next sections.
+    We recommend that readers launch a Jupyter Notebook in a Python environment with `pyBIS` installed, and run the commands shown throughout the following sections.
 
-## Creating Projects and Other Entities
+## Creating Projects and other Entities
 
-We can create new Projects by doing:
+You can create new Projects as follows:
 
 ```python
 new_project = o.new_project(
@@ -16,9 +16,9 @@ new_project.save()
 ```
 
 !!! sucess 
-    Do not forget to `save()` the newly created Projects or Entities after defining them.
+    Do not forget to call `save()` on newly created Projects or Entities after defining them to store them in openBIS.
 
-To create a new Collection, we need to know the `type` we want to define. Nevertheless, in the BAM Data Store we only use `COLLECTION` types for any Collection:
+To create a new Collection, we need to know the `type` we want to define. Nevertheless, in the BAM Data Store we only use `COLLECTION` types is used for any Collection:
 
 ```python
 new_collection = o.new_collection(
@@ -29,13 +29,15 @@ new_collection = o.new_collection(
 new_collection.save()
 ```
 
-### Creating New Objects
+### Creating new Objects
 
-In order to create a new Object under a Collection or a Project, we need to know its `type` beforehand. This depends on the specific use-case where this is being applied, as this is the main building block of data modeling in openBIS (e.g., [Conceptual Data Model in the BAM Wiki](https://datastore.bam.de/en/How_to_guides/Represent_research_data)). You can see all the available Object types in the [BAM Masterdata repository](https://github.com/BAMresearch/bam-masterdata/blob/main/bam_masterdata/datamodel/object_types.py) or in the openBIS Admin UI.
+To create a new Object under a Collection or a Project, we need to know its `type` beforehand. This depends on the specific use case, as Object types are the main building blocks of data modeling in openBIS (see, e.g., the [Conceptual Data Model in the BAM Wiki](https://datastore.bam.de/en/How_to_guides/Represent_research_data)). 
 
-In this example, we will assume that we are creating a new experimental step and assigning some dummy metadata to it. 
+You can find all available Object types in the [BAM Masterdata repository](https://github.com/BAMresearch/bam-masterdata/blob/main/bam_masterdata/datamodel/object_types.py) or in the openBIS Admin UI.
 
-We first create the Object:
+In this example, we assume that we are creating a new experimental step and assigning some dummy metadata to it. 
+
+First, create the Object:
 
 ```python
 new_experimental_step = o.new_object(
@@ -46,11 +48,11 @@ new_experimental_step = o.new_object(
 ```
 
 !!! note
-    If we leave the `code` attribute empty, openBIS will automatically assign one based on the definition of `EXPERIMENTAL_STEP` followed by a 4-digit number (see [`generated_code_prefix` for `EXPERIMENTAL_STEP`](https://github.com/BAMresearch/bam-masterdata/blob/main/bam_masterdata/datamodel/object_types.py#L261)).
+    If the `code` attribute is left empty, openBIS will automatically assign one based on the definition of `EXPERIMENTAL_STEP`, followed by a four-digit number (see [`generated_code_prefix` for `EXPERIMENTAL_STEP`](https://github.com/BAMresearch/bam-masterdata/blob/main/bam_masterdata/datamodel/object_types.py#L261)).
 
-Each Object in openBIS has some assigned properties to it. A [Property](https://datastore.bam.de/en/concepts/property) is a metadata field used to describe such Object. It can be of different [data types](https://datastore.bam.de/en/masterdata_definition/best_practices#property-data-type) (e.g., string, integers, floats, etc.). One of the most relevant data types is [CONTROLLEDVOCABULARY](https://datastore.bam.de/en/concepts/controlled_vocabulary). These are specifically constrained values to a metadata field.
+Each Object in openBIS has a set of assigned properties. A [Property](https://datastore.bam.de/en/concepts/property) is a metadata field used to describe an Object. Properties can have different [data types](https://datastore.bam.de/en/masterdata_definition/best_practices#property-data-type) (e.g., string, integers, floats, etc.). One of the most relevant data types is [CONTROLLEDVOCABULARY](https://datastore.bam.de/en/concepts/controlled_vocabulary), which restricts values to a predefined set.
 
-We can list the available properties of an Object by doing:
+You can list the available properties of an Object by doing:
 
 ```python
 new_experimental_step.props
@@ -58,7 +60,7 @@ new_experimental_step.props
 # new_experimental_step.props()
 ```
 
-We can then define the properties by passing a dictionary:
+You can store metadata in the properties by passing a dictionary:
 
 ```python
 new_experimental_step.props = {
@@ -69,16 +71,17 @@ new_experimental_step.save()
 ```
 
 Note that:
-- Each property has a defined **data type**. If the stored value does not match the expected data type (e.g., `finished_flag` is a BOOLEAN, hence if you pass a string, e.g., `"False"`, pyBIS will return an error).
-- Some properties are **mandatory** and some are **optional**. So if we save an object with some mandatory properties missing, we will get an error.
-- The properties can be passed directly when creating a object: `new_object(..., props={...})`
-- Alternatively, properties can be defined by using the key and assigning the value, e.g.: `new_experimental_ste["$name"]: "trying out pybis"`.
+
+* Each property has a defined **data type**. If the provided value does not match the expected type (e.g., `finished_flag` is a BOOLEAN, so passing `"False"` as a string will raise an error).
+* Some properties are **mandatory**, while others are **optional**. Saving an Object with missing mandatory properties will result in an error.
+* Properties can be passed directly at Object creation time using: `new_object(..., props={...})`
+* Alternatively, properties can be set individually, for example: `new_experimental_step["$name"]: "trying out pybis"`.
 
 ### Parent-child Relationships between Objects
 
-Following the previous steps, imagine we create two additional experimental steps: `parent_experimental_step` and `child_experimental_step`.
+Following the previous steps, imagine creating two additional experimental steps: `parent_experimental_step` and `child_experimental_step`.
 
-We can then create a parent-child relationship for our `new_experimental_step`:
+Now, you can create a parent-child relationship for `new_experimental_step`:
 
 ```python
 new_experimental_step.parents = parent_experimental_step
@@ -86,14 +89,14 @@ new_experimental_step.children = child_experimental_step
 new_experimental_step.save()
 ```
 
-We can also add parents or children using the synthax:
+You can also add parents or children using the following syntax:
 
 ```python
 parent_experimental_step.add_children(child_experimental_step)
 parent_experimental_step.save()
 ```
 
-We can delete parent-child relationships:
+You can delete parent-child relationships as well:
 
 ```python
 parent_experimental_step.del_children(child_experimental_step)
@@ -103,7 +106,7 @@ parent_experimental_step.save()
 
 ### Attaching datasets
 
-Datasets can be created similarly to other entities, with the exception that we need to specify files attached to it. We only use `RAW_DATA` as the Dataset type:
+Datasets can be created similarly to other entities, with the difference that files must be attached. In the BAM Data Store, only `RAW_DATA` is used as the Dataset type:
 
 ```python
 new_dataset = o.new_dataset(
@@ -114,56 +117,63 @@ new_dataset = o.new_dataset(
 new_dataset.save()
 ```
 
-We can also delete them:
+Datasets can also be deleted:
 
 ```python
 new_dataset.delete(reason="We finished with the example")
 ```
 
-## Search and Filters
+## Search and filters
 
-You've already learned in Part 1 to discover what is available in an openBIS instance. However, there are more advanced filters/searches that can be done, including filtering Objects whose metadata is a specific value or under a certain threshold value.
+In Part 1, you learned how to explore what is available in the openBIS instance. More advanced searches and filters are also possible, such as filtering Objects based on metadata values or numerical threshold.
 
-We will consider filtering Objects in this example.
+In this sub-section, we focus on filtering Objects.
 
-Typically, `get_objects()` and the similar methods return all the objects in an instance. For efficiency, it is better to create batches and loop over them to map the objects with the desired properties. We can then use the `count` and `start_with` parameters to code this:
+Methods such as `get_objects()` typically return all the matching Objects in an instance. For efficiency, it is often better to retrieve results in batches. This can be achieved using the `count` and `start_with` parameters:
 
 ```python
 start_with = 3 
 
-experimental_steps = o.get_objects(type="EXPERIMENTAL_STEP", count=6, start_with=start_with)
+experimental_steps = o.get_objects(
+    type="EXPERIMENTAL_STEP",
+    count=6, 
+    start_with=start_with,
+)
 ```
 
-`start_with`  specifies which element in the list of `get_objects()` to start with, while `count` returns a specific number of elements from the search. We use `type` to define the type of objects we want to return.
+Here, `start_with` specifies the index at which the result list starts, while `count` defines how many Objects are returned. The `type` parameter restricts the search to a specific Object type (in this case, `EXPERIMENTAL_STEP`).
 
 ```python
 for step in experimental_steps:
     print(f"Experimental step: {step.code}")
 ```
 
-We can also get objects whose properties match certain values:
+You can also retrieve Objects whose properties match certain values:
 
 ```python
-o.get_objects(where={"$name": "* <name-we-want-to-find>"}, props=["$name"])
+o.get_objects(
+    where={"$name": "* <name-we-want-to-find>"},
+    props=["$name"],
+)
 ```
 
-Here, the `props` attribute ensures that `$name` are returned in the result of the search.
+Here, the `props` parameter ensures that `$name` is included in the returned results.
 
-We can also use mathematical operators (`>`, `<`, `=`, `>=`, `<=`):
+Mathematical comparison operators (`>`, `<`, `=`, `>=`, `<=`) can also be used:
 
 ```python
 o.get_objects(registrationdate=">2023-07-21")
 ```
 
-And more complex searches like:
+And even more complex searches:
 
 ```python
 o.get_objects(
-    space="MY_*",  # return from spaces starting with MY_
-    type="*_STEP*",  # any objects that contain _STEP in the type
-    withParents="*",  # containing any parents
+    space="MY_*",  # spaces starting with MY_
+    type="*_STEP*",  # objects types containing _STEP
+    withParents="*",  # objects having any parents
     withChildren=[
         "/MY_SPACE/MY_PROJECT/MY_COLLECTION/SAMPLE*",
-    ]  # containing children with code starting with SAMPLE
+    ],  # objects having children with codes starting with SAMPLE
 )
 ```

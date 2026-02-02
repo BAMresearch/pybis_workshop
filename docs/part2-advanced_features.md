@@ -31,7 +31,7 @@ new_collection.save()
 
 ### Creating New Objects
 
-In order to create a new Object under a Collection or a Project, we need to know its `type` beforehand. This depends on the specific use-case where this is being applied, as this is the main building block of data modeling in openBIS (e.g., [Conceptual Data Model in the BAM Wiki](https://datastore.bam.de/en/How_to_guides/Represent_research_data)).
+In order to create a new Object under a Collection or a Project, we need to know its `type` beforehand. This depends on the specific use-case where this is being applied, as this is the main building block of data modeling in openBIS (e.g., [Conceptual Data Model in the BAM Wiki](https://datastore.bam.de/en/How_to_guides/Represent_research_data)). You can see all the available Object types in the [BAM Masterdata repository](https://github.com/BAMresearch/bam-masterdata/blob/main/bam_masterdata/datamodel/object_types.py) or in the openBIS Admin UI.
 
 In this example, we will assume that we are creating a new experimental step and assigning some dummy metadata to it. 
 

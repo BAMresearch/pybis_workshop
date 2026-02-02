@@ -1,0 +1,51 @@
+site_name: BAM pyBIS Workshop
+site_description: The official training material for pyBIS in BAM.
+site_author: BAM Data Store
+repo_url: https://github.com/BAMresearch/bam-pybis-workshop
+nav:
+  - Overview: index.md
+  - Part 1 - Basic pyBIS introduction: part1-basic_introduction.md
+  - Part 2 - Advanced pyBIS features: part2-advanced_features.md
+  - Part 3 - BAM Parsers: part3-bam_parsers.md
+theme:
+  name: material
+  palette:
+    primary: custom
+    accent: custom
+  logo: assets/datastore-logo.png
+  favicon: assets/datastore-logo.png
+  features:
+    - navigation.path
+    - navigation.footer
+    - navigation.top
+    - content.code.copy
+  icon:
+    repo: fontawesome/brands/github
+plugins:
+  - search
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - footnotes
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - toc:
+      permalink: True
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - 'https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js'
+  - 'https://unpkg.com/cytoscape@3.19.1/dist/cytoscape.min.js'
+  - 'https://unpkg.com/mermaid@10.9.0/dist/mermaid.min.js'

@@ -3,14 +3,19 @@
 
 Welcome to the one-day workshop at BAM to learn Python tools for Research Data Management (RDM) with [openBIS](https://openbis.ch/). This page is organized in the three parts or tutorials presented during the workshop:
 
-* Part 1 - Basic pyBIS Introduction
-* Part 2 - Advanced pyBIS Features
-* Part 3 - BAM Parsers
+* [Part 1 - Basic pyBIS Introduction](part1-basic_introduction.md): you will learn how to do basic calls using pyBIS and about the available [Entities](https://datastore.bam.de/en/concepts/entity_and_entity_types) in an openBIS instance.
+* [Part 2 - Advanced pyBIS Features](part2-advanced_features.md): you will learn to create new Entities, their parent-child relationships, and automate searches and filters using pyBIS.
+* [Part 3 - BAM Parsers](part3-bam_parsers.md): you will learn how to automate data ingestion by creating new entities and their parent-child relationships using the BAM Parser Infrastructure.
 
 In order to work throughout the tutorials, you will need to install in your laptop:
 
 1. Visual Studio Code (VSCode)
 2. Miniforge3 with Python3.12
+
+We also recommend installing a few VSCode extensions which will allow you to open and work with Python and Jupyter Notebooks:
+
+* Python: https://marketplace.visualstudio.com/items?itemName=ms-python.python
+* Jupyter: https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter
 
 
 ## Setting up a working VSCode with Python in Windows
@@ -69,11 +74,6 @@ Type "help", "copyright", "credits" or "license" for more information.
 Ctrl click to launch VS Code Native REPL
 >>>
 ```
-
-Finally, you can install a few VSCode extensions which will allow you to open and work with Jupyter Notebooks:
-
-* Python: https://marketplace.visualstudio.com/items?itemName=ms-python.python
-* Jupyter: https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter
 
 ## Setup the tutorial workspace
 
